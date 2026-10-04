@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>For My Everything | Since September 18th</title>
+  <title>For My Everything | Since August 18th</title>
   
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -39,6 +39,115 @@
       position: relative;
     }
 
+    /* Prevent scrolling when login screen is active */
+    body.locked {
+      overflow: hidden;
+    }
+
+    /* ==================== PASSWORD LOGIN SCREEN ==================== */
+    .login-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: var(--bg-color);
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: opacity 0.8s ease-in-out;
+    }
+
+    .login-card {
+      background: var(--card-bg);
+      padding: 50px 40px;
+      border-radius: 28px;
+      text-align: center;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+      border: 1px solid rgba(232, 165, 165, 0.4);
+      max-width: 420px;
+      width: 90%;
+    }
+
+    .login-card h2 {
+      font-family: 'Dancing Script', cursive;
+      font-size: 3.5rem;
+      color: var(--accent-deep);
+      margin-bottom: 10px;
+    }
+
+    .login-card p.prompt {
+      color: var(--text-muted);
+      margin-bottom: 30px;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .password-input {
+      width: 100%;
+      padding: 15px 20px;
+      border: 2px solid var(--accent-rose);
+      border-radius: 14px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1.1rem;
+      text-align: center;
+      outline: none;
+      color: var(--text-dark);
+      margin-bottom: 15px;
+      transition: all 0.3s ease;
+    }
+
+    .password-input:focus {
+      border-color: var(--accent-deep);
+      box-shadow: 0 0 15px rgba(232, 165, 165, 0.4);
+    }
+
+    .login-btn {
+      width: 100%;
+      background: var(--accent-deep);
+      color: white;
+      border: none;
+      padding: 15px;
+      border-radius: 14px;
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: 'Montserrat', sans-serif;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .login-btn:hover {
+      background: #43001e;
+      transform: translateY(-2px);
+    }
+
+    .error-msg {
+      color: #D8000C;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-top: -5px;
+      margin-bottom: 15px;
+      display: none;
+    }
+
+    .hint {
+      font-size: 0.75rem;
+      color: var(--accent-rose);
+      margin-top: 20px;
+    }
+
+    /* Shake animation for wrong password */
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-8px); }
+      40%, 80% { transform: translateX(8px); }
+    }
+    .shake {
+      animation: shake 0.4s ease-in-out;
+      border-color: #D8000C;
+    }
+
     /* ==================== FLOATING HEARTS ANIMATION ==================== */
     .heart-bg {
       position: fixed;
@@ -60,16 +169,10 @@
     }
 
     @keyframes floatUp {
-      0% {
-        transform: translateY(105vh) scale(0.5) rotate(0deg);
-        opacity: 0;
-      }
+      0% { transform: translateY(105vh) scale(0.5) rotate(0deg); opacity: 0; }
       20% { opacity: 0.8; }
       80% { opacity: 0.8; }
-      100% {
-        transform: translateY(-10vh) scale(1.3) rotate(360deg);
-        opacity: 0;
-      }
+      100% { transform: translateY(-10vh) scale(1.3) rotate(360deg); opacity: 0; }
     }
 
     /* ==================== SIDEBAR NAVIGATION (PC FIRST) ==================== */
@@ -653,7 +756,21 @@
     }
   </style>
 </head>
-<body>
+<body class="locked">
+
+  <!-- ================= PASSWORD LOGIN SCREEN ================= -->
+  <div id="login-screen" class="login-overlay">
+    <div class="login-card">
+      <h2>Hello, Angel</h2>
+      <p class="prompt">Please enter the password to open your surprise.</p>
+      
+      <input type="password" id="password-input" class="password-input" placeholder="Enter password..." onkeydown="if(event.key === 'Enter') checkPassword()">
+      <p id="error-msg" class="error-msg">Incorrect password, try again!</p>
+      
+      <button onclick="checkPassword()" class="login-btn">Unlock My Heart 🔓</button>
+      <p class="hint">Hint: The date it all started (MMDD)</p>
+    </div>
+  </div>
 
   <!-- Floating Background Hearts -->
   <div class="heart-bg" id="heart-container"></div>
@@ -666,7 +783,7 @@
     <div>
       <div class="brand">
         <h1>Kunal & My Angel</h1>
-        <p>Since Sept 18</p>
+        <p>Since Aug 18</p>
       </div>
 
       <ul class="nav-links">
@@ -713,8 +830,8 @@
     <!-- PAGE 1: HOME -->
     <section id="home" class="page-section active">
       <div class="hero-card">
-        <h2>September 18th Changed Everything</h2>
-        <p class="hero-quote">"April brought you into my life as a friend... but September 18th gave me the girl who owns my entire heart."</p>
+        <h2>August 18th Changed Everything</h2>
+        <p class="hero-quote">"April brought you into my life as a friend... but August 18th gave me the girl who owns my entire heart."</p>
         
         <p class="hero-text">
           Distance might keep us from holding hands every single day, but it will never lessen what I feel for you. I built this little digital corner just for you—a place where you can come anytime you want to remember how deeply loved you are.
@@ -723,7 +840,7 @@
         <div class="counters-grid">
           <div class="counter-box">
             <div class="counter-number" id="days-together">0</div>
-            <div class="counter-label">Days Together (Since Sept 18th)</div>
+            <div class="counter-label">Days Together (Since Aug 18th)</div>
           </div>
           <div class="counter-box">
             <div class="counter-number" id="birthday-countdown">0</div>
@@ -748,7 +865,7 @@
         </div>
 
         <div class="timeline-item">
-          <div class="timeline-date">September 18th — The Spark</div>
+          <div class="timeline-date">August 18th — The Spark</div>
           <div class="timeline-title">The Best Day of My Life</div>
           <p class="timeline-body">
             The day our relationship officially started. From that moment on, everything changed for me. Even though we entered a long-distance relationship, you made the distance feel small because of how much warmth and effort you put into us every day.
@@ -842,7 +959,7 @@
 
               Every single day, I think about what it will feel like when the distance is gone. More than anything in this universe, I just want to stand in front of you, wrap my arms around you, pull you close, and hug you as tightly as I possibly can. I want to hold you until all the distance between us disappears.
 
-              Thank you for choosing me every day since September 18th. I love you more than words could ever describe.
+              Thank you for choosing me every day since August 18th. I love you more than words could ever describe.
 
               Yours forever and always,
             </div>
@@ -953,6 +1070,35 @@
 
   <!-- JavaScript Engine -->
   <script>
+    // ================= PASSWORD LOGIN LOGIC =================
+    // THIS IS YOUR PASSWORD! YOU CAN CHANGE "0818" TO ANY WORD OR NUMBER YOU WANT.
+    const secretPassword = "0818"; 
+
+    function checkPassword() {
+      const inputField = document.getElementById('password-input');
+      const errorMsg = document.getElementById('error-msg');
+      const loginScreen = document.getElementById('login-screen');
+      const userInput = inputField.value.trim();
+
+      if (userInput === secretPassword) {
+        // Correct Password: Fade out screen, unlock scrolling, play music
+        loginScreen.style.opacity = '0';
+        setTimeout(() => {
+          loginScreen.style.display = 'none';
+          document.body.classList.remove('locked');
+          // Automatically play music since clicking the button counts as interaction!
+          if (!isPlaying) toggleAudio();
+        }, 800);
+      } else {
+        // Wrong Password: Show error and trigger shake animation
+        errorMsg.style.display = 'block';
+        inputField.classList.add('shake');
+        setTimeout(() => {
+          inputField.classList.remove('shake');
+        }, 400);
+      }
+    }
+
     // ================= PAGE NAVIGATION (SPA LOGIC) =================
     function switchPage(pageId, btn) {
       const sections = document.querySelectorAll('.page-section');
@@ -995,7 +1141,7 @@
           playText.textContent = 'Pause Song';
           isPlaying = true;
         }).catch(err => {
-          alert('Click anywhere on the screen first, then hit play!');
+          console.log("Browser blocked autoplay. User must click play manually.");
         });
       }
     }
@@ -1004,16 +1150,16 @@
     function updateCounters() {
       const now = new Date();
 
-      // September 18th Calculator
-      let sept18 = new Date(now.getFullYear(), 8, 18);
-      if (now < sept18) {
-        sept18.setFullYear(now.getFullYear() - 1);
+      // August 18th Calculator (Month is 7 because January is 0 in JavaScript)
+      let aug18 = new Date(now.getFullYear(), 7, 18);
+      if (now < aug18) {
+        aug18.setFullYear(now.getFullYear() - 1);
       }
-      const diffTime = Math.abs(now - sept18);
+      const diffTime = Math.abs(now - aug18);
       const diffDaysTogether = Math.floor(diffTime / (1000 * 60 * 60 * 24));
       document.getElementById('days-together').textContent = diffDaysTogether;
 
-      // March 21st Birthday Countdown
+      // March 21st Birthday Countdown (Month is 2)
       let march21 = new Date(now.getFullYear(), 2, 21);
       if (now > march21) {
         march21.setFullYear(now.getFullYear() + 1);
@@ -1042,8 +1188,8 @@
 
     // Interactive Mouse Click Burst
     document.addEventListener('click', function(e) {
-      // Don't burst if clicking buttons or cards to avoid clutter
-      if(e.target.tagName === 'BUTTON' || e.target.tagName === 'A') return;
+      // Don't burst on input or login screen to keep it clean
+      if(e.target.tagName === 'BUTTON' || e.target.tagName === 'A' || e.target.tagName === 'INPUT') return;
 
       for(let i = 0; i < 6; i++) {
         const heart = document.createElement('div');
